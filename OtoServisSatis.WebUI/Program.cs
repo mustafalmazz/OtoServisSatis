@@ -1,4 +1,6 @@
 using OtoServisSatis.Data;
+using OtoServisSatis.Service.Abstract;
+using OtoServisSatis.Service.Concrete;
 
 namespace OtoServisSatis.WebUI
 {
@@ -11,9 +13,11 @@ namespace OtoServisSatis.WebUI
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<DataBaseContext>();
+            builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline. 
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -26,6 +30,10 @@ namespace OtoServisSatis.WebUI
 
             app.UseAuthorization();
 
+            app.MapControllerRoute(
+            name: "admin",
+            pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}"
+          );
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
