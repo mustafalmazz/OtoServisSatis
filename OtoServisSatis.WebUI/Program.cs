@@ -25,6 +25,11 @@ namespace OtoServisSatis.WebUI
                 x.Cookie.MaxAge =TimeSpan.FromDays(7);
                 x.Cookie.IsEssential = true;
             });
+            builder.Services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminPolicy", policy=>policy.RequireClaim("Role","Admin"));
+                x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+            });
 
             var app = builder.Build();
 
@@ -41,7 +46,6 @@ namespace OtoServisSatis.WebUI
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
             app.UseAuthorization();
 
             app.MapControllerRoute(
