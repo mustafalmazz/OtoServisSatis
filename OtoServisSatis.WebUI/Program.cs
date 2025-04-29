@@ -13,8 +13,12 @@ namespace OtoServisSatis.WebUI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
             builder.Services.AddDbContext<DataBaseContext>();
+
             builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
+            builder.Services.AddTransient<ICarService,CarService>();
+
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
             {
                 x.LoginPath = "/Admin/Login";

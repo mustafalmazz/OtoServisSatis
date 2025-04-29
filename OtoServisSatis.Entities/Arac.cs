@@ -19,6 +19,8 @@ namespace OtoServisSatis.Entities
         public string KasaTipi { get; set; }
         [Display(Name = "Model Yılı")]
         public int ModelYili { get; set; }
+        [Display(Name ="Anasayfa?")]
+        public bool Anasayfa {  get; set; }
         [Display(Name ="Satışta mı?")]
         public bool SatistaMi {  get; set; }
         [Required(ErrorMessage = "{0} Boş Bırakılamaz")]
