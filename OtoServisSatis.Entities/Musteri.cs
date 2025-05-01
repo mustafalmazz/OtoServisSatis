@@ -26,5 +26,12 @@ namespace OtoServisSatis.Entities
         public string? Notlar { get; set; }
         [Display(Name = "Araç")]
         public virtual Arac? Arac { get; set; }
+        public string? AdSoyad
+        {
+            get
+            {
+                return this.Adi + " " + this.Soyadi;
+            }
+        }
     }
 }

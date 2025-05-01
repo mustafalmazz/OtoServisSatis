@@ -50,6 +50,8 @@
         </nav>
     </header>
     <div class="container">
+        @* yeniden bakılacak *@
+        @Html.Raw(TempData["Message"])
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
