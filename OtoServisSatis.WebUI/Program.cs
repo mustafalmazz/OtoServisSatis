@@ -2,6 +2,7 @@ using OtoServisSatis.Data;
 using OtoServisSatis.Service.Abstract;
 using OtoServisSatis.Service.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace OtoServisSatis.WebUI
 {
@@ -18,21 +19,22 @@ namespace OtoServisSatis.WebUI
 
             builder.Services.AddTransient(typeof(IService<>), typeof(Service<>));
             builder.Services.AddTransient<ICarService,CarService>();
+            builder.Services.AddTransient<IUserService,UserService>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
             {
-                x.LoginPath = "/Admin/Login";
+                x.LoginPath = "/Account/Login";
                 x.AccessDeniedPath = "/AccesDenied";
-                x.LogoutPath = "/Admin/Logout";
+                x.LogoutPath = "/Account/Logout";
                 x.Cookie.Name = "Admin";
-                x.LoginPath = "/Admin/Login";
                 x.Cookie.MaxAge =TimeSpan.FromDays(7);
                 x.Cookie.IsEssential = true;
             });
             builder.Services.AddAuthorization(x =>
             {
-                x.AddPolicy("AdminPolicy", policy=>policy.RequireClaim("Role","Admin"));
-                x.AddPolicy("UserPolicy", policy => policy.RequireClaim("Role", "User"));
+                x.AddPolicy("AdminPolicy", policy=>policy.RequireClaim(ClaimTypes.Role,"Admin"));
+                x.AddPolicy("UserPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "User", "Admin"));
+                x.AddPolicy("CustomerPolicy", policy => policy.RequireClaim(ClaimTypes.Role, "Customer","User", "Admin"));
             });
 
             var app = builder.Build();
@@ -54,8 +56,7 @@ namespace OtoServisSatis.WebUI
 
             app.MapControllerRoute(
             name: "admin",
-            pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}"
-          );
+            pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}");
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",

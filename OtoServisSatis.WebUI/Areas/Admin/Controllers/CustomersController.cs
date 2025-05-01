@@ -7,7 +7,7 @@ using OtoServisSatis.Service.Abstract;
 
 namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
 
     public class CustomersController : Controller
     {
@@ -115,6 +115,10 @@ namespace OtoServisSatis.WebUI.Areas.Admin.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult Kantin()
+        {
+            return View();
         }
     }
 }

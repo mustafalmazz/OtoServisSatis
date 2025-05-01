@@ -7,10 +7,12 @@ namespace OtoServisSatis.WebUI.Controllers
     public class AracController : Controller
     {
         private readonly ICarService _serviceArac;
+        private readonly IService<Musteri> _serviceMusteri;
 
-        public AracController(ICarService serviceArac)
+        public AracController(ICarService serviceArac, IService<Musteri> serviceMusteri)
         {
             _serviceArac = serviceArac;
+            _serviceMusteri = serviceMusteri;
         }
 
 
@@ -29,6 +31,26 @@ namespace OtoServisSatis.WebUI.Controllers
         {
             var model = await _serviceArac.GetCustomCarList(c=>c.SatistaMi && c.Marka.Adi.Contains(q) || c.KasaTipi.Contains(q) || c.Modeli.Contains(q));
             return View(model);
+        }
+       
+        [HttpPost]
+        public async Task<IActionResult> MusteriKayit(Musteri musteri)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _serviceMusteri.AddAsync(musteri);
+                    await _serviceMusteri.SaveAsync();
+
+                    return Redirect("/Arac/Index/" + musteri.AracId);
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
+            return Redirect("/Arac/Index/" + musteri.AracId); ;
         }
     }
 }

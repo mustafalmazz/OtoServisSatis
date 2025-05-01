@@ -1,23 +1,16 @@
 ﻿@model Kullanici
 
 @{
-    ViewData["Title"] = "Kullanıcı Düzenle";
+    ViewData["Title"] = "Üye Kayıt";
 }
 
-<h1>Kullanıcı Düzenle</h1>
+<h1>Üye Kayıt</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="EklenmeTarihi" />
-            <input type="hidden" asp-for="UserGuid" />
-            <div class="form-group">
-                <label asp-for="UserGuid" class="control-label"></label><br />
-                @Model.UserGuid
-            </div>
             <div class="form-group">
                 <label asp-for="Adi" class="control-label"></label>
                 <input asp-for="Adi" class="form-control" />
@@ -39,29 +32,14 @@
                 <span asp-validation-for="Telefon" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="KullaniciAdi" class="control-label"></label>
-                <input asp-for="KullaniciAdi" class="form-control" />
-                <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Sifre" class="control-label"></label>
                 <input asp-for="Sifre" class="form-control" />
                 <span asp-validation-for="Sifre" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AktifMi" /> @Html.DisplayNameFor(model => model.AktifMi)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="RolId" class="control-label"></label>
-                <select asp-for="RolId" class="form-select" asp-items="ViewBag.RolId"></select>
-                <span asp-validation-for="RolId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Kaydol" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
