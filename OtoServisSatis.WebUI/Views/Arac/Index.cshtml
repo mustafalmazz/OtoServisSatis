@@ -15,13 +15,13 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/Img/Cars/@Model.Arac.Resim1" class="d-block w-100" alt="...">
+                            <img src="/Img/Cars/@Model.Arac.Resim1" class="d-block w-100 slider-img" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="/Img/Cars/@Model.Arac.Resim2" class="d-block w-100" alt="...">
+                            <img src="/Img/Cars/@Model.Arac.Resim2" class="d-block w-100 slider-img" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="/Img/Cars/@Model.Arac.Resim3" class="d-block w-100" alt="...">
+                            <img src="/Img/Cars/@Model.Arac.Resim3" class="d-block w-100 slider-img" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -35,8 +35,8 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="small mb-1"</div>
-                <h1 class="display-5 fw-bolder">@ViewData["Title"]</h1>
+                <div class="small mb-1"></div>
+                <h1 class="display-5 fw-bolder" style="color: #7CFC00;">@ViewData["Title"]</h1>
                 <div class="fs-5">
                     <span>Fiyatı : @Model.Arac.Fiyati ₺</span>
                 </div>
@@ -50,7 +50,8 @@
                     @Model.Arac.Notlar
                 </p>
                 <div class="d-flex">
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            style="background-color: #7CFC00; color: black; border: 1px solid white;">
                         <i class="bi-cart-fill me-1"></i>
                         Bilgi Al
                     </button>
@@ -61,3 +62,25 @@
 </section>
 
 <partial name="Musteri" model="Model.Musteri" />
+
+<style>
+    /* Slider görsellerinin boyutlandırılmasını sağla */
+    .slider-img {
+        height: 400px; /* Görselin yüksekliği */
+        object-fit: cover; /* Görselin boyutunu karta uyacak şekilde büyütür/küçültür */
+        object-position: center; /* Görselin ortalanmasını sağlar */
+        width: 100%; /* Genişliği karta uygun hale getirir */
+        padding: 2px; /* Resimlere 2px padding ekledim */
+    }
+
+    /* Slider çerçevesi ve yeşil renk */
+    .carousel-item {
+        border: 2px solid #7CFC00; /* Yeşil renkli çerçeve */
+        border-radius: 10px; /* Kavisli köşeler */
+    }
+
+    /* Yazı ve butonlar için tema uyumu */
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: transparent; /* Yeşil rengi kaldırdım */
+    }
+</style>

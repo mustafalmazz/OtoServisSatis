@@ -8,60 +8,177 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OtoServisSatis.WebUI.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-nav .nav-item {
+            margin-right: 20px; /* Bağlantılar arasındaki boşluğu artır */
+        }
+        body {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+
+        a.nav-link, .navbar-brand {
+            color: #7CFC00 !important; /* Fıstık Yeşili */
+        }
+
+            a.nav-link:hover {
+                color: #66cc00 !important; /* Daha koyu fıstık yeşili */
+            }
+
+        .btn-warning, .btn-outline-warning {
+            background-color: #7CFC00; /* Fıstık Yeşili */
+            border-color: #7CFC00;
+        }
+
+            .btn-warning:hover, .btn-outline-warning:hover {
+                background-color: #66cc00; /* Daha koyu fıstık yeşili */
+                border-color: #66cc00;
+                color: #121212;
+            }
+
+        .btn-outline-primary {
+            border-color: #7CFC00;
+            color: #7CFC00;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #66cc00;
+                border-color: #66cc00;
+                color: #fff;
+            }
+
+        .card {
+            background-color: #2C2C2C;
+            color: #f5f5f5;
+        }
+
+        .card-body {
+            background-color: #333333;
+        }
+
+        .card-footer {
+            background-color: #333333;
+        }
+
+        .card-img-top {
+            border-radius: 0.5rem;
+        }
+
+        .navbar {
+            background-color: #121212;
+        }
+
+        .footer {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+
+            .footer a {
+                color: #7CFC00;
+            }
+
+                .footer a:hover {
+                    color: #66cc00;
+                }
+
+        .form-control {
+            background-color: #333333;
+            color: #f5f5f5;
+            border-color: #7CFC00;
+        }
+
+            .form-control::placeholder {
+                color: #7CFC00;
+            }
+
+        .input-group-text {
+            background-color: #7CFC00; /* Arama ikonu yeşil */
+            border: none;
+        }
+
+            .input-group-text i {
+                color: black; /* İkonun rengi siyah */
+            }
+
+        .form-control {
+            border-left: none; /* Arama kutusunun sol kenarını kaldırıyoruz */
+        }
+
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OtoServisSatis.WebUI</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-car" style="color: #7CFC00;"></i>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark"  asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark"  asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Arac" asp-action="List">Tüm Araçlar</a>
+                            <a class="nav-link" asp-controller="Arac" asp-action="List">Tüm Araçlar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Favorites" asp-action="Index">Favorilerim</a>
                         </li>
                     </ul>
                 </div>
+
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" asp-action="Ara" asp-controller="Arac" method="get">
-                    <input name="q" type="search" class="form-control" placeholder="Ara..." aria-label="Search">
+                    <div class="input-group">
+                        <!-- Yeşil Arama İkonu -->
+                        <span class="input-group-text" style="background-color: #7CFC00; border: none;">
+                            <i class="fas fa-search" style="color: black;"></i> <!-- İkon rengi siyah oldu -->
+                        </span>
+                        <input name="q" type="search" class="form-control" placeholder="Ara..." aria-label="Search">
+                    </div>
                 </form>
+
                 <div class="text-end">
-                    @if(Context.User.Identity.IsAuthenticated)
+                    @if (Context.User.Identity.IsAuthenticated)
                     {
-                        <a asp-controller="Account" asp-action="Index" class="btn btn-primary me-2">Hesabım</a>
-                        <a asp-controller="Account" asp-action="Logout" class="btn btn-primary">Oturumu Kapat</a>
+                        <!-- Hesap ve Oturum Kapanış Butonları -->
+                        <a asp-controller="Account" asp-action="Index" class="btn btn-warning me-2">Hesabım</a>
+                        <a asp-controller="Account" asp-action="Logout" class="btn btn-warning">Oturumu Kapat</a>
                     }
                     else
                     {
-                        <a asp-controller="Account" asp-action="Login" class="btn btn-primary me-2">Giriş Yap</a>
-                        <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Kaydol</a>
+                        <!-- Giriş ve Kayıt Ol Butonları -->
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-warning me-2">Giriş Yap</a>
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-warning">Kaydol</a>
                     }
                 </div>
             </div>
         </nav>
     </header>
+
+
     <div class="container">
-        @* yeniden bakılacak *@
         @Html.Raw(TempData["Message"])
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="background-color: #7CFC00; ">
         <div class="container">
-            &copy; 2025 - OtoServisSatis.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - OtoSatış.com - <a asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

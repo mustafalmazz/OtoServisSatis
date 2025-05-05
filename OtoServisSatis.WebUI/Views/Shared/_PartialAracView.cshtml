@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Arac>
+
+@foreach (var item in Model)
+{
+    <div class="col mb-5">
+        <div class="card h-100 bg-dark text-white border border-light">
+            <!-- Product image-->
+            <img class="card-img-top arac-img" src="/Img/Cars/@item.Resim1" alt="Araç Görseli">
+
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <h5 class="fw-bolder" style="color: #7CFC00;">@item.Marka.Adi @item.Modeli @item.KasaTipi</h5>
+                    <!-- Product price-->
+                    <span class="text-white">@item.Fiyati ₺</span>
+                </div>
+            </div>
+
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center d-flex flex-column gap-2 mt-3">
+                    <a class="btn mt-auto" href="/Arac/Index/@item.Id" style="color: #7CFC00; border: 1px solid #7CFC00;">İncele</a>
+                    <form action="/Favorites/Add" method="post">
+                        <input type="hidden" name="aracId" value="@item.Id" />
+                        <button type="submit" class="btn text-dark" style="background-color: #7CFC00; border: 1px solid #7CFC00;">Favorilere Al</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .arac-img {
+        height: 200px; /* Görselleri eşit boyuta getirir */
+        width: 100%;
+        object-fit: cover; /* Görselin tamamı görünür, kesilmez */
+        background-color: #1a1a1a; /* Görsellerdeki boş alan için arka plan */
+        @* padding: 10px; /* Görselin kenarlara yapışmasını engeller */ *@
+    }
+</style>
