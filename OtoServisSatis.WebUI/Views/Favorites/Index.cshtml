@@ -2,39 +2,64 @@
 @{
     ViewData["Title"] = "Favorilerim";
 }
-<h1 class="text-center" style="color: #7CFC00; font-size:50px">Favorilerim</h1>
-<hr style="color:#7CFC00" />
 
-@if (Model is not null && Model.Count() > 0)
+<style>
+    .custom-card {
+        background-color: #1c1c1c;
+        border: 1px solid #7CFC00;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 15px;
+        color: #f5f5f5;
+        transition: 0.3s;
+    }
+
+        .custom-card:hover {
+            box-shadow: 0 0 15px #7CFC00;
+        }
+
+    .custom-btn-remove {
+        background-color: transparent;
+        color: #ff4d4d;
+        border: 1px solid #ff4d4d;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+        .custom-btn-remove:hover {
+            background-color: #ff4d4d;
+            color: black;
+        }
+
+    .custom-card img {
+        border-radius: 5px;
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<h1 class="text-center" style="color: #7CFC00; font-size:50px">Favorilerim</h1>
+<hr style="color:#7CFC00; height: 5px; width:50px border: none; background-color: #7CFC00;" />
+@if (Model != null && Model.Any())
 {
-    <table class="table table-hover table-striped">
-        <tr style="background-color: #f4f4f4;">
-            <th>Araç</th>
-            <th>Resim</th>
-            <th></th>
-        </tr>
+    <div class="row">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <a href="/Arac/Index/@item.Id" style="text-decoration: none; color:black">
-                        @item.Marka.Adi @item.Modeli @item.Renk @item.KasaTipi
+            <div class="col-md-4">
+                <div class="custom-card">
+                    <a href="/Arac/Index/@item.Id" style="text-decoration: none; color: #7CFC00;">
+                        <h4>@item.Marka.Adi @item.Modeli</h4>
+                        <p>@item.Renk - @item.KasaTipi</p>
+                        <img src="/Img/Cars/@item.Resim1" alt="@item.Modeli" />
                     </a>
-                </td>
-                <td>
-                    <a href="/Img/Cars/@item.Resim1" alt="@item.Modeli">
-                        <img src="/Img/Cars/@item.Resim1" alt="@item.Modeli" height="40" />
-                    </a>
-                </td>
-                <td>
-                    <form action="/Favorites/Remove" method="post">
+                    <form action="/Favorites/Remove" method="post" class="mt-3">
                         <input type="hidden" name="aracId" value="@item.Id" />
-                        <button type="submit" class="btn btn-outline-danger" >X</button>
+                        <button type="submit" class="custom-btn-remove">Favorilerden Kaldır</button>
                     </form>
-                </td>
-            </tr>
+                </div>
+            </div>
         }
-    </table>
+    </div>
 }
 else
 {

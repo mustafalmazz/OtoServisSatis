@@ -33,10 +33,15 @@
 
 <style>
     .arac-img {
-        height: 200px; /* Görselleri eşit boyuta getirir */
+        height: 200px;
         width: 100%;
-        object-fit: cover; /* Görselin tamamı görünür, kesilmez */
-        background-color: #1a1a1a; /* Görsellerdeki boş alan için arka plan */
-        @* padding: 10px; /* Görselin kenarlara yapışmasını engeller */ *@
+        object-fit: cover;
+        background-color: #1a1a1a;
+    }
+
+    .card:hover {
+        box-shadow: 0 0 15px 5px #7CFC00;
+        transition: box-shadow 0.3s ease;
     }
 </style>
+
